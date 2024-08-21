@@ -3,8 +3,6 @@
 use App\Models\Category;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-uses(RefreshDatabase::class);
-
 it('can list categories', function () {
     $categories = Category::factory()->count(5)->create();
 

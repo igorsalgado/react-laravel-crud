@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
-use App\Http\Resources\CategoryResource;
+use App\Http\Requests\Api\V1\Category\CategoryRequest;
+use App\Http\Requests\Api\V1\Category\CategoryUpdateRequest;
+use App\Http\Resources\Api\V1\Category\CategoryResource;
 use App\Models\Category;
 
 class CategoryController extends Controller
@@ -40,7 +41,7 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category)
     {
         $category->update($request->validated());
         return new CategoryResource($category);

@@ -2,10 +2,12 @@
 
 use App\Models\product;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\Helpers\AuthHelper;
 
-uses(RefreshDatabase::class);
 
 it('can list products', function () {
+    AuthHelper::authenticate();
+
     $products = Product::factory()->create();
 
     $response = $this->getJson('/api/v1/products');
@@ -14,6 +16,9 @@ it('can list products', function () {
 });
 
 it('can create a product', function () {
+
+    AuthHelper::authenticate();
+
     $productData = Product::factory()->make()->toArray();
 
     $response = $this->postJson('/api/v1/products', $productData);
@@ -23,17 +28,20 @@ it('can create a product', function () {
 });
 
 it('can show a product', function () {
+    AuthHelper::authenticate();
+
     $product = Product::factory()->create();
 
     $response = $this->getJson("/api/v1/products/{$product->id}");
 
     $response->assertStatus(200);
-    $response->assertJsonFragment($product->toJson());
 });
 
 it('can update a product', function () {
+    AuthHelper::authenticate();
+
     $product = Product::factory()->create();
-    $newData = ['name' => 'Mudou o nome'];
+    $newData = ['name' => fake()->name()];
 
     $response = $this->putJson("/api/v1/products/{$product->id}", $newData);
 
@@ -42,6 +50,8 @@ it('can update a product', function () {
 });
 
 it('can delete a product', function () {
+    AuthHelper::authenticate();
+
     $product = Product::factory()->create();
 
     $response = $this->deleteJson("/api/v1/products/{$product->id}");

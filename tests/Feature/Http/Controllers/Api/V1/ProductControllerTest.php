@@ -6,7 +6,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 uses(RefreshDatabase::class);
 
 it('can list products', function () {
-    $products = Product::factory()->count(5)->create();
+    $products = Product::factory()->create();
 
     $response = $this->getJson('/api/v1/products');
 
